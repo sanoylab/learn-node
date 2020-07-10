@@ -1,9 +1,31 @@
-console.log('1')
 
-setTimeout(()=>{
-  console.log('2')
-}, 2000);
-setTimeout(()=>{
-  console.log('3')
-}, 1000)
-console.log('4')
+const yargs = require('yargs')
+
+const weather = require('./weather.js')
+
+yargs.command({
+    command: 'location', 
+    describe: 'Add location to get the weather information',
+    builder: {
+        name: {
+            describe: 'Location name',
+            demandOption: true,
+            type: 'string'
+        }
+       
+    },
+    handler(argv){       
+      weather.searchLocation(argv.name)
+    }
+    
+})
+
+
+
+
+yargs.parse();
+
+
+
+
+
