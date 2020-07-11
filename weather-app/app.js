@@ -1,8 +1,11 @@
 
 const yargs = require('yargs')
 
-const weather = require('./weather.js')
+const weather = require('./weather')
 
+const address =  process.argv[2]
+address == undefined ? console.log('Please provide address'): weather.geoCode(address, weather.getWeatherInformation)
+/*
 yargs.command({
     command: 'location', 
     describe: 'Add location to get the weather information',
@@ -15,7 +18,7 @@ yargs.command({
        
     },
     handler(argv){       
-      weather.searchLocation(argv.name)
+      weather.geoCode(argv.name, weather.getWeatherInformation)
     }
     
 })
@@ -25,7 +28,7 @@ yargs.command({
 
 yargs.parse();
 
-
+*/
 
 
 
