@@ -15,5 +15,5 @@ const product = {
     salePrice: undefined
 }
 
-const {label} = product
-console.log(label)
+const {price} = product
+console.log(price+1)
