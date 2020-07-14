@@ -1,13 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="This is a HTML, CSS Flexbox page">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Pattaya|Poppins:400,500&display=swap" rel="stylesheet" />
+   <link rel="stylesheet" href="/css/style.css">
     <title>Weather App</title>
-    <link rel="stylesheet" href="/css/style.css">
 </head>
+   
+
 <body>
-    <h1>{{title}}</h1>
-    <p>Created by: {{ author }}</p>
+    {{>header}}
+
+      <main>
+        <section class="hero">
+            <h2>{{title}}</h2>
+            <h3>
+                City is awesome, they name it twice
+            </h3>
+            <button>Read More</button>
+        </section>
+    </main>
+    
+    
 </body>
 </html>

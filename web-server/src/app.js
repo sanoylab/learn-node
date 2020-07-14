@@ -9,27 +9,23 @@ const PORT = process.env.PORT || 3000
 //Define path for Express config
 const publicDirectory = path.join(__dirname, '../public')
 const viewsPath = path.join(__dirname, '../templates/views')
-const partialsPath = path.join(__dirname, '../templates/paritals')
+const partialsPath = path.join(__dirname, '../templates/partials')
 
 //Setup handlebars engine and views location
 app.set('view engine','hbs')
 app.set('views', viewsPath)
-hbs.registerPartial(partialsPath)
+hbs.registerPartials(partialsPath)
 
 //Setup static directory to serve
 app.use(express.static(publicDirectory))
 
 
-app.get('', (req, res)=>{
+app.get('/', (req, res)=>{
     res.render('index', {
-        title: 'Weather App',
+        title: 'Welcome to Weather App',
         author: 'Yonas Yeneneh'
     })
 })
-
-
-
-
 app.get('/about', (req, res)=>{
     res.render('about', {
         title: 'About Me',
@@ -42,6 +38,10 @@ app.get('/help', (req, res)=>{
         title: 'Help',
         body: 'This is a text for the help page'
     })
+})
+
+app.get('*', (req, res)=>{
+    res.render('404')
 })
 /*
 app.get('/', (req, res)=>{ 
