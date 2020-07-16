@@ -10,13 +10,21 @@ const imageIcon = document.querySelector('#imgIcon')
 const searchResult = document.querySelector('.info')
 
 const currentLocation = document.querySelector('#currentBtn')
+window.addEventListener("load", function(){
+
+    if(localStorage.getItem('location')){
+        console.log('yyyy')
+        featchData(localStorage.getItem('location').toString()) 
+    }
+})
+
 
 currentLocation.addEventListener('click', (e)=>{
     e.preventDefault();
     getLocation();
 })
 
-function getLocation() {
+ const getLocation = ()=>{
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(showPosition);
     } else { 
@@ -24,10 +32,11 @@ function getLocation() {
     }
   }
   
-  function showPosition(position) {
+  const showPosition= (position) =>{
       const latitude = position.coords.latitude 
       const longitude = position.coords.longitude;
       featchData(longitude+","+latitude)
+      
   }
 
 
@@ -56,7 +65,7 @@ const featchData = (location)=>{
                 temparature.textContent = `${data.temprature}˚ ${data.forcast}.`
                 feelslike.textContent = `Feels Like: ${data.feelsLike}˚ Humidity: ${data.humidity}˚`
 
-                fetch('https://api.unsplash.com/search/photos?client_id=ilTEI9kIDd6WytvhfVlaV_COEUcbJnxDh0kOQBJV_c8&page=1&query='+location).then((response)=>{
+                fetch('https://api.unsplash.com/search/photos?client_id=ilTEI9kIDd6WytvhfVlaV_COEUcbJnxDh0kOQBJV_c8&page=1&query='+data.location).then((response)=>{
                     response.json().then((data)=>{
                         console.log(data.results[0].urls.full)
                         let backImage = data.results[0].urls.regular
@@ -67,6 +76,7 @@ const featchData = (location)=>{
 
                     })
                 })
+                localStorage.setItem('location', data.location)
     
             }
             
