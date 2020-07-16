@@ -2,6 +2,9 @@ const express =  require('express')
 const path =  require('path')
 const hbs = require('hbs')
 
+const geocode = require('./util/geocode')
+const forcast = require('./util/forcast')
+
 const app = express()
 const PORT = process.env.PORT || 3000
 
@@ -22,7 +25,7 @@ app.use(express.static(publicDirectory))
 
 app.get('/', (req, res)=>{
     res.render('index', {
-        title: 'Welcome to Weather App',
+        title: 'New York',
         author: 'Yonas Yeneneh'
     })
 })
@@ -40,9 +43,7 @@ app.get('/help', (req, res)=>{
     })
 })
 
-app.get('*', (req, res)=>{
-    res.render('404')
-})
+
 /*
 app.get('/', (req, res)=>{ 
    res.send('<h1>Home</h1>')
@@ -70,13 +71,50 @@ app.get('/json', (req, res)=>{
 })
 
 app.get('/weather', (req, res)=>{
-    res.send([{
-        location: 'New York', 
-        forcast: 27
-    },{
-        location: 'London, ON', 
-        forcast: 29
-    }])
+    if(!req.query.address){
+      return  res.send({
+            'error': 'You must provide address'
+        })
+    }
+    geocode(req.query.address, (error, {latlong,placeName}={})=>{
+
+        
+        if(error){
+            return res.send({ error })
+        }
+        forcast(latlong, placeName, (error, forcastData)=>{
+            if(error){
+                return res.send({ error })
+            }
+
+                     
+            res.send({
+                temprature: forcastData.temprature, 
+                forcast: forcastData.description,
+                feelsLike: forcastData.feelsLike,
+                weatherIcon: forcastData.weatherIcon,
+                humidity: forcastData.humidity,
+                location: forcastData.location,
+                address: req.query.address
+            })
+        })
+    })
+    
+   
+    
+
+ 
+    /*
+    res.render('weather', {
+        forcast: req.query.forcast,
+        location: req.query.location
+    })
+    */
+
+})
+
+app.get('*', (req, res)=>{
+    res.render('404')
 })
 
 
