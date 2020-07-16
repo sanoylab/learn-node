@@ -17,7 +17,7 @@ const forcast = (latlong, placeName, callback)=>{
                     feelsLike: res.body.current.feelslike,
                     weatherIcon: res.body.current.weather_icons,
                     humidity: res.body.current.humidity,
-                    location: placeName
+                    location: res.body.location.name + ', '+ res.body.location.country
 
                 }) 
             }   

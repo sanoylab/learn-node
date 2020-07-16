@@ -87,7 +87,7 @@ app.get('/weather', (req, res)=>{
                 return res.send({ error })
             }
 
-                     
+              
             res.send({
                 temprature: forcastData.temprature, 
                 forcast: forcastData.description,
